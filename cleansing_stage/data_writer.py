@@ -1,5 +1,6 @@
 import boto3
 import smart_open
+from io import StringIO
 
 class DataWriter(object):
 
@@ -44,13 +45,29 @@ class S3Writer(DataWriter):
         self.s3url = s3url
 
     def __enter__(self):
-        self.file = smart_open.open(s3url)
+        self.file = smart_open.smart_open(self.s3url, 'w')
         return self
 
     def write_line(self, line):
-        self.file.write(f"{line}\n")
+        self.file.write(line)
     
     def __exit__(self, *args):
-        smart_open.close(self.file)
+        self.file.close()
+
+
+class BufferWriter(DataWriter):
+
+    def __init__(self, strio: StringIO):
+        self.strio = strio
+
+    def __enter__(self):
+        return self
+
+    def write_line(self, line):
+        self.strio.write(line)
+    
+    def __exit__(self, *args):
+        pass
+
 
 

@@ -2,7 +2,7 @@ import codecs
 import boto3
 
 class DataReader(object):
-    def read_line(self):
+    def read_lines(self):
         pass
 
 
@@ -18,7 +18,7 @@ class StringReader(DataReader):
     def __init__(self, data:str):
         self.data = data
 
-    def read_line(self):
+    def read_lines(self):
         for line in self.data.splitlines():
             yield line
 

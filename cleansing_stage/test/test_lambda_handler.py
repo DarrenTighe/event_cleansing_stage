@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 
 from ..cleansing_stage_lambda_handler import lambda_handler
 from ..cleansing_stage import CleansingStage
@@ -46,9 +47,11 @@ class lambda_handler_test(unittest.TestCase):
             }
         ]
         }
-    
-    def test_lambda_handler(self):
+    @patch('cleansing_stage.cleansing_stage.CleansingStage.cleanse_data')
+    def test_lambda_handler(self, mockCleansingStage):
         lambda_handler(self.sample_s3_event, None)
+        assert mockCleansingStage.called
+
 
 
 if __name__ =='__main__':
