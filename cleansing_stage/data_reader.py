@@ -10,8 +10,8 @@ class FileReader(DataReader):
     def __init__(self, filename: str):
         self.filename = filename
 
-    def read_line(self):
-        for line in open(filename, 'r'):
+    def read_lines(self):
+        for line in open(self.filename, 'r'):
             yield line
 
 class StringReader(DataReader):
