@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import pandas as pd
 import boto3
 import os
@@ -19,6 +20,7 @@ def lambda_handler(event, context):
 
         cleansing_stage = CleansingStage(reader, cleaned_writer, broken_writer)
         cleansing_stage.cleanse_data()
+        
         
 def getconfig(cfg_name):
     # This could be done with an ini file instead. 

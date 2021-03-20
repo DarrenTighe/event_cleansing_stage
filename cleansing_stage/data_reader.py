@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import codecs
 import boto3
 

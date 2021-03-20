@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import boto3
 from .data_reader import DataReader, FileReader
 from .data_writer import DataWriter
@@ -43,7 +44,8 @@ class CleansingStage():
                     
                     if line_series.isnull().values.any():
                         # Missing value
-                        error_out.write_line(f"Missing Value [{input_line}]")
+                        singleline = input_line.rstrip('\n')
+                        error_out.write_line(f"Missing Value [{singleline}]")
                     
                     if not validate_email(
                         email_address=line_series['user_email'], 
