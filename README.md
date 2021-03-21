@@ -2,7 +2,7 @@
 
 ## Description
 
-This is an example data prep and cleansing project. This 
+This is an example data prep and cleansing project. 
 The data files to cleanse are in JSONL format and are stored in s3.
 
 I've chosen to implement this as an aws lambda function, triggered from the ObjectCreated:Put event raised by s3 on file upload / creation.
@@ -11,7 +11,7 @@ As the files are of arbitrary size, I've opted to parse these line by line rathe
 This could be sped up by multithreading or by splitting the files into smaller batches.
 
 The cleansed files are uploaded to s3:/darrentighe-test/cleansed/ in csv format. 
-CSVs in s3 can be uploaded to redshift using
+CSVs in s3 can be uploaded to redshift using:
 ```
 COPY table_name
 FROM 's3://<your-bucket-name>/load/file_name.csv'
@@ -22,12 +22,12 @@ Saving them in this way prevents the rows from being lost. The rows can be manua
 
 ## Running as a local app
 
-install dependencies
+Install dependencies
 ```
 python3 -m pip install -r cleansing_stage/requirements.txt
 ```
 
-run test entry point
+Run test entry point
 ```
 python3 ./local_test_entrypoint.py --output_bucket <BUCKET_NAME>
 ```
@@ -39,12 +39,12 @@ Building
 docker build -t event_cleansing_stage ./cleansing_stage/
 ```
 
-upload to ecr
+Upload to ecr
 ```
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <YOUR ECR ADDRESS>.dkr.ecr.us-east-1.amazonaws.com
 ```
 
-push image to ecr
+Push image to ecr
 ```
 docker tag  event_cleansing_stage:latest <YOUR ECR ADDRESS>.dkr.ecr.us-east-1.amazonaws.com/hello-world:latest
 docker push <YOUR ECR ADDRESS>.dkr.ecr.us-east-1.amazonaws.com/event_cleansing_stage:latest        
