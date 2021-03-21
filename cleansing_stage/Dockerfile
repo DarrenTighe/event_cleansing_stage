@@ -10,4 +10,4 @@ RUN python -m pip install -r requirements.txt
 WORKDIR /app
 COPY . /app
 
-CMD ["python", "app/cleansing_stage.py"]
+CMD ["cleansing_stage_lambda_handler.lambda_handler"]
